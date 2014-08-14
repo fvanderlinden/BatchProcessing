@@ -14,6 +14,7 @@ protected
   Boolean isSimulated;
 algorithm
   // OutputCPUtime:=true;
+//Advanced.TranslationInCommandLog:=true;
 
   for i in 1:interpolationModes loop
     (isSimulated,CPUTime[:, i]) := simulateExtendedModel(
@@ -30,6 +31,7 @@ algorithm
       initialValues={i},
       finalNames={"CPUtime"},
       autoLoad=false);
+      savelog("translationLog"+String(i)+".html");
   end for;
 
   // Write results to file

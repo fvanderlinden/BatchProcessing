@@ -1,0 +1,23 @@
+OutputCPUtime:=true;
+
+  simulateExtendedModel(problem="BatchProcessing.Examples.PRNGNoise", startTime=0, stopTime=1,
+numberOfIntervals=0, outputInterval=0, method="dassl",
+tolerance=1e-4, fixedstepsize=0, resultFile="model",
+initialNames={"SincInterpolation_n"}, initialValues={5},
+finalNames={"prng.y","CPUtime"}, autoLoad=false);
+
+
+
+ (IsSimulated, CPUTime) :=simulateMultiExtendedModel(
+    problem="BatchProcessing.Examples.PRNGNoise",
+    startTime=0,
+    stopTime=1,
+    numberOfIntervals=0,
+    outputInterval=0,
+    method="dassl",
+    tolerance=1e-4,
+    fixedstepsize=0,
+    resultFile="model",
+    initialNames={"SincInterpolation_n"},
+    initialValues=[1,2,3,4,5],
+    finalNames={"CPUtime"});

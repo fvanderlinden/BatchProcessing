@@ -1,1 +1,3 @@
-SImulateAndGetCPTTime
+batchSimulateWithLogReader
+readLogFile
+readFromString

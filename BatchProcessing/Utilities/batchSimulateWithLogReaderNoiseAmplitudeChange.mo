@@ -1,25 +1,25 @@
 within BatchProcessing.Utilities;
-function batchSimulateWithLogReader
+function batchSimulateWithLogReaderNoiseAmplitudeChange
 
-  input String modelName = "BatchProcessing.Examples.NoInterplolationIntegrator";
+  input String modelName = "BatchProcessing.Examples.TestSignalToNoise";
   input Real stopTime = 100 "Simulation stop time";
   input String method = "dassl";
   input String resultMatName="Results.mat" "Name of result file";
   input String[:] getSimulationProperties={"Number of (successful) steps","time for integration",
       "Number of F-evaluations       : "};
-  input Real Tolerances[:]={1e-1,1e-2,1e-3,1e-4,1e-5,1e-6,1e-7,1e-8};
+  input Real Amplitudes[:]={1e-4,1e-3,1e-2,1e-1,1e-0};
 
-  output Real[size(Tolerances,1)] CPUTime;
-  output Real[size(Tolerances,1)] numberOfSteps;
-  output Real[size(Tolerances,1)] numberOfF_Evals;
+  output Real[size(Amplitudes,1)] CPUTime;
+  output Real[size(Amplitudes,1)] numberOfSteps;
+  output Real[size(Amplitudes,1)] numberOfF_Evals;
 
 protected
   Boolean isSimulated;
-  Real[size(getSimulationProperties,1),size(Tolerances,1)] logValues;
+  Real[size(getSimulationProperties,1),size(Amplitudes,1)] logValues;
   Real temp[:];
 algorithm
 
-  for i in 1:size(Tolerances,1) loop
+  for i in 1:size(Amplitudes,1) loop
     (isSimulated,temp) := simulateExtendedModel(
       problem=modelName,
       startTime=0,
@@ -27,11 +27,11 @@ algorithm
       numberOfIntervals=3,
       outputInterval=0,
       method=method,
-      tolerance=Tolerances[i],
+      tolerance=1e-4,
       fixedstepsize=0,
       resultFile="model_" + String(i),
-      initialNames={""},
-      initialValues={5},
+      initialNames={"gain.k"},
+      initialValues={Amplitudes[i]},
       finalNames={"prng.y"},
       autoLoad=false);
 
@@ -63,7 +63,7 @@ algorithm
     true);
   DataFiles.writeMATmatrix(
     resultMatName,
-    {"Tolerances"},
-    {Tolerances},
+    {"Amplitudes"},
+    {Amplitudes},
     true);
-end batchSimulateWithLogReader;
+end batchSimulateWithLogReaderNoiseAmplitudeChange;

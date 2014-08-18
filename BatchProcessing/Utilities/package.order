@@ -1,3 +1,5 @@
 batchSimulateWithLogReader
 readLogFile
 readFromString
+readAfterColon
+batchSimulateWithLogReaderNoiseAmplitudeChange

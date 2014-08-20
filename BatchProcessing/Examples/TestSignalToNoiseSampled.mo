@@ -1,22 +1,20 @@
 within BatchProcessing.Examples;
-model TestSignalToNoise "Shows the use of the basic PRNG block"
+model TestSignalToNoiseSampled "Shows the use of the basic PRNG block"
 import Noise;
  extends Modelica.Icons.Example;
 
 Noise.PRNG prng(
   redeclare function PSD = Noise.PSD.PSD_IdealLowPass,
-  useSampleBasedMethods=false,
-  redeclare function PDF = Noise.PDF.PDF_BoxMuller)
+  redeclare function PDF = Noise.PDF.PDF_BoxMuller,
+    useSampleBasedMethods=true)
   annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 Modelica.Mechanics.Translational.Components.Spring spring(
   s_rel0=0,
   c=2*Modelica.Constants.pi,
     s_rel(fixed=false, start=1))
   annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-Modelica.Mechanics.Translational.Components.Mass mass(m=1,
-    v(start=0, fixed=false),
-    a(fixed=false, start=0),
-    s(fixed=true, start=1))
+Modelica.Mechanics.Translational.Components.Mass mass(m=1, s(start=1, fixed=
+          true))
   annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 Modelica.Mechanics.Translational.Sources.Position position(exact=true)
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -50,7 +48,7 @@ annotation (experiment(
     __Dymola_Algorithm="Dassl"),
                         __Dymola_experimentSetupOutput,
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-          100}}),
+            100}}),
           graphics),
   Documentation(revisions="<html>
 <p><img src=\"modelica://Noise/Resources/Images/dlr_logo.png\"/> <b>Developed 2014 at the DLR Institute of System Dynamics and Control</b> </p>
@@ -58,4 +56,4 @@ annotation (experiment(
         info="<html>
 <p>This example demonstrates, how the PRNG block can be instantiated. You can use this example to test different settings in the PRNG block.</p>
 </html>"));
-end TestSignalToNoise;
+end TestSignalToNoiseSampled;

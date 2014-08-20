@@ -1,9 +1,9 @@
 within BatchProcessing.Examples;
-model NoInterplolationIntegratorSampleFree
+model LinInterplolationIntegratorSampleFree
 extends Modelica.Icons.Example;
   inner Noise.GlobalSeed globalSeed
     annotation (Placement(transformation(extent={{-32,-6},{-12,14}})));
-  Noise.PRNG prng
+  Noise.PRNG prng(redeclare function PSD = Noise.PSD.PSD_LinearInterpolation)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Continuous.Integrator integrator
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -14,4 +14,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})));
-end NoInterplolationIntegratorSampleFree;
+end LinInterplolationIntegratorSampleFree;

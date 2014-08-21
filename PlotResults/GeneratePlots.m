@@ -1,9 +1,9 @@
 %% set plot data
 close all % clears memory
-DataDir = 'D:\Modelica\DymolaWork\'; % data dir of simulation results generated using the Modelica library
+DataDir = fullfile(pwd,'Data'); % data dir of simulation results generated using the Modelica library
 useInternalDLRToolboxes = true; % set to false if internal DLR toolboxes are not available. This only effects grahical effects.
 exportFigures = true; % set to false if no figure export is wanted or no DLR internal toolboxes are available
-exportdirectory = 'D:\Repositories\MathMod2015\draft\figures'; % Set output directory where figures are saved
+exportdirectory = fullfile(pwd,'Figures'); % Set output directory where figures are saved
 
 %% Load logfile data
 NoInterplolationIntegratorSampleFree=load(fullfile(DataDir,'Res_NoInterplolationIntegratorSampleFree.mat'));

@@ -63,10 +63,10 @@ if exportFigures && useInternalDLRToolboxes
     xmf_init('height', 21, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',1.5);
     xmf_figure(1)
-    xmf_subplot(4,1,1)
+    xmf_subplot(3,1,1)
 else
     figure(1)
-    subplot(411)
+    subplot(311)
 end
 
 loglog(NoInterplolationIntegratorSampleFree.Tolerances,NoInterplolationIntegratorSampleFree.numberOfF_Evals,...
@@ -87,9 +87,9 @@ set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
 legend('No interpolation','Linear interpolation','Sinc interpolation','location','SouthEast')
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_subplot(4,1,2)
+    xmf_subplot(3,1,2)
 else
-    subplot(412)
+    subplot(312)
 end
 loglog(NoInterplolationIntegratorSampleFree.Tolerances,NoInterplolationIntegratorSampleFree.CPUTime,...
     LinInterplolationIntegratorSampleFree.Tolerances,LinInterplolationIntegratorSampleFree.CPUTime,...
@@ -107,6 +107,32 @@ set(gca,'XDir','reverse')
 ylim([1e-3,5e2])
 set(gca,'YTick',[1e-3,1e-1,1e1])
 
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(3,1,3)
+else
+    subplot(313)
+end
+loglog(NoInterplolationIntegratorSampleFree.Tolerances,NoInterplolationIntegratorSampleFree.absoluteMeanError+1e-10,...
+    LinInterplolationIntegratorSampleFree.Tolerances,LinInterplolationIntegratorSampleFree.absoluteMeanError+1e-10,...
+    SincInterpolationIntegratorSampleFree.Tolerances,SincInterpolationIntegratorSampleFree.absoluteMeanError+1e-10,...
+    NoInterplolationIntegratorSampled.Tolerances,NoInterplolationIntegratorSampled.absoluteMeanError+1e-10,...
+    LinInterplolationIntegratorSampled.Tolerances,LinInterplolationIntegratorSampled.absoluteMeanError+1e-10,...
+    SincInterplolationIntegratorSampled.Tolerances,SincInterplolationIntegratorSampled.absoluteMeanError+1e-10)
+
+grid on
+
+ylabel 'Absolute mean error'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+% ylim([1e-3,5e2])
+% set(gca,'YTick',[1e-3,1e-1,1e1])
+
+
+
+
+
+%%
 % plot integrator Radau
 if exportFigures && useInternalDLRToolboxes
     xmf_subplot(4,1,3)

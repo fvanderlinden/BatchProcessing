@@ -176,6 +176,7 @@ loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCr
     SincInterplolationCriticalDamping50Sampled.Tolerances,SincInterplolationCriticalDamping50Sampled.numberOfF_Evals)
 
 grid on
+title 'DASSL'
 ylabel 'Function evaluations'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
@@ -221,6 +222,7 @@ loglog(RadauNoInterplolationCriticalDamping50SampleFree.Tolerances,RadauNoInterp
     RadauSincInterplolationCriticalDamping50Sampled.Tolerances,RadauSincInterplolationCriticalDamping50Sampled.numberOfF_Evals)
 
 grid on
+title 'Radau IIA'
 ylabel 'Function evaluations'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
@@ -379,7 +381,7 @@ end
 %% Plot Signal to noise ratios
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 7, 'width', 8.5);
+    xmf_init('height', 5.15, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
     xmf_figure(6)
 else
@@ -421,11 +423,11 @@ end
 
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 7, 'width', 8.5);
+    xmf_init('height', 5.15, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
-    xmf_figure(6)
+    xmf_figure(7)
 else
-    figure(6)
+    figure(7)
 end
 
 loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.CPUTime,...

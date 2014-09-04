@@ -187,10 +187,10 @@ if exportFigures && useInternalDLRToolboxes
     xmf_init('height', 21, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',1.5);
     xmf_figure(2)
-    xmf_subplot(4,1,1)
+    xmf_subplot(3,1,1)
 else
     figure(2)
-    subplot(411)
+    subplot(311)
 end
 
 loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCriticalDamping50SampleFree.numberOfF_Evals,...
@@ -210,9 +210,9 @@ set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
 legend('No interpolation','Linear interpolation','Sinc interpolation','location','SouthEast')
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_subplot(4,1,2)
+    xmf_subplot(3,1,2)
 else
-    subplot(412)
+    subplot(312)
 end
 
 loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCriticalDamping50SampleFree.CPUTime,...
@@ -231,6 +231,31 @@ set(gca,'XDir','reverse')
 ylim([1e-3,1e3])
 set(gca,'YTick',[1e-3,1e-1,1e1,1e3])
 
+
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(3,1,3)
+else
+    subplot(313)
+end
+
+loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCriticalDamping50SampleFree.absoluteMeanError+1e-10,...
+    LinInterplolationCriticalDamping50SampleFree.Tolerances,LinInterplolationCriticalDamping50SampleFree.absoluteMeanError+1e-10,...
+    SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.absoluteMeanError+1e-10,...
+    NoInterplolationCriticalDamping50Sampled.Tolerances,NoInterplolationCriticalDamping50Sampled.absoluteMeanError+1e-10,...
+    LinInterplolationCriticalDamping50Sampled.Tolerances,LinInterplolationCriticalDamping50Sampled.absoluteMeanError+1e-10,...
+    SincInterplolationCriticalDamping50Sampled.Tolerances,SincInterplolationCriticalDamping50Sampled.absoluteMeanError+1e-10)
+
+grid on
+
+ylabel 'Absolute mean error'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+% ylim([1e-3,1e3])
+% set(gca,'YTick',[1e-3,1e-1,1e1,1e3])
+
+
+%%
 % plot results Radau CriticalDamping50
 
 if exportFigures && useInternalDLRToolboxes

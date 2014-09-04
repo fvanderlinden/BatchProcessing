@@ -4,6 +4,7 @@ DataDir = fullfile(pwd,'Data'); % data dir of simulation results generated using
 useInternalDLRToolboxes = true; % set to false if internal DLR toolboxes are not available. This only effects grahical effects.
 exportFigures = true; % set to false if no figure export is wanted or no DLR internal toolboxes are available
 exportdirectory = fullfile(pwd,'Figures'); % Set output directory where figures are saved
+smallNumber = 1e-10; % Offset to avoid zeros in loglog plots
 
 %% Load logfile data
 NoInterplolationIntegratorSampleFree=load(fullfile(DataDir,'Res_NoInterplolationIntegratorSampleFree.mat'));
@@ -251,14 +252,138 @@ set(gca,'YTick',[1e-3,1e-1,1e1,1e3])
 if exportFigures
 xmf_export(fullfile(exportdirectory,'BigSystem'),'source',gcf,'output','eps_tex','compiler','pdflatex');
 end
+
+
+
+
+
+
+
+
+
+%% Plot ERRORS!
+% Integrator DASSL
+if exportFigures && useInternalDLRToolboxes
+    xmf_init('height', 21, 'width', 8.5);
+    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',1.5);
+    xmf_figure(5)
+    xmf_subplot(4,1,1)
+else
+    figure(5)
+    subplot(411)
+end
+
+loglog(NoInterplolationIntegratorSampleFree.Tolerances,NoInterplolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    LinInterplolationIntegratorSampleFree.Tolerances,LinInterplolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    SincInterpolationIntegratorSampleFree.Tolerances,SincInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    NoInterplolationIntegratorSampled.Tolerances,NoInterplolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    LinInterplolationIntegratorSampled.Tolerances,LinInterplolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    SincInterplolationIntegratorSampled.Tolerances,SincInterplolationIntegratorSampled.absoluteMeanError+smallNumber)
+
+grid on
+title DASSL
+ylabel 'Error RMS (integrator)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+% ylim([1e1,1e8])
+% set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
+legend('No interpolation','Linear interpolation','Sinc interpolation','location','NorthEast')
+
+
+% CriticalDamping DASSL
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,2)
+else
+    subplot(412)
+end
+loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    LinInterplolationCriticalDamping50SampleFree.Tolerances,LinInterplolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    NoInterplolationCriticalDamping50Sampled.Tolerances,NoInterplolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    LinInterplolationCriticalDamping50Sampled.Tolerances,LinInterplolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    SincInterplolationCriticalDamping50Sampled.Tolerances,SincInterplolationCriticalDamping50Sampled.absoluteMeanError+smallNumber)
+
+grid on
+
+ylabel 'Error RMS (damping)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+% ylim([1e-3,5e2])
+% set(gca,'YTick',[1e-3,1e-1,1e1])
+
+% plot integrator Radau
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,3)
+else
+    subplot(413)
+end
+
+loglog(RadauNoInterplolationIntegratorSampleFree.Tolerances,RadauNoInterplolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    RadauLinInterplolationIntegratorSampleFree.Tolerances,RadauLinInterplolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    RadauSincInterpolationIntegratorSampleFree.Tolerances,RadauSincInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    RadauNoInterplolationIntegratorSampled.Tolerances,RadauNoInterplolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    RadauLinInterplolationIntegratorSampled.Tolerances,RadauLinInterplolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    RadauSincInterplolationIntegratorSampled.Tolerances,RadauSincInterplolationIntegratorSampled.absoluteMeanError+smallNumber)
+
+
+grid on
+title 'Radau IIA'
+
+ylabel 'Error RMS (integrator)'
+xlim([1e-8,1e-1])
+set(gca,'XDir','reverse')
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+% ylim([1e1,1e8])
+% set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
+
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,4)
+else
+    subplot(414)
+end
+loglog(RadauNoInterplolationCriticalDamping50SampleFree.Tolerances,RadauNoInterplolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    RadauLinInterplolationCriticalDamping50SampleFree.Tolerances,RadauLinInterplolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    RadauSincInterpolationCriticalDamping50SampleFree.Tolerances,RadauSincInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    RadauNoInterplolationCriticalDamping50Sampled.Tolerances,RadauNoInterplolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    RadauLinInterplolationCriticalDamping50Sampled.Tolerances,RadauLinInterplolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    RadauSincInterplolationCriticalDamping50Sampled.Tolerances,RadauSincInterplolationCriticalDamping50Sampled.absoluteMeanError+smallNumber)
+
+grid on
+xlabel 'Tolerance'
+ylabel 'Error RMS (damping)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+% ylim([1e-3,1e3])
+% set(gca,'YTick',[1e-3,1e-1,1e1,1e3])
+if exportFigures
+xmf_export(fullfile(exportdirectory,'ErrorComparison'),'source',gcf,'output','eps_tex','compiler','pdflatex');
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %% Plot Signal to noise ratios
 
 if exportFigures && useInternalDLRToolboxes
     xmf_init('height', 7, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
-    xmf_figure(5)
+    xmf_figure(6)
 else
-    figure(5)
+    figure(6)
 end
 
 if useInternalDLRToolboxes
@@ -318,4 +443,5 @@ set(gca,'YTick',[1e-0,1e1,1e2,1e3])
 if exportFigures && useInternalDLRToolboxes
 xmf_export(fullfile(exportdirectory,'SignalNoiseTime'),'source',gcf,'output','eps_tex','compiler','pdflatex');
 end
+
 

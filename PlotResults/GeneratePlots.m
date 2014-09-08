@@ -1,5 +1,5 @@
 %% set plot data
-close all % clears memory
+close all; clear all % clears memory
 DataDir = fullfile(pwd,'Data'); % data dir of simulation results generated using the Modelica library
 useInternalDLRToolboxes = true; % set to false if internal DLR toolboxes are not available. This only effects grahical effects.
 exportFigures = true; % set to false if no figure export is wanted or no DLR internal toolboxes are available
@@ -179,6 +179,7 @@ loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCrit
     SincInterpolationCriticalDamping50Sampled.Tolerances,SincInterpolationCriticalDamping50Sampled.numberOfF_Evals)
 
 grid on
+title 'DASSL'
 ylabel 'Function evaluations'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
@@ -224,6 +225,7 @@ loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpo
     RadauSincInterpolationCriticalDamping50Sampled.Tolerances,RadauSincInterpolationCriticalDamping50Sampled.numberOfF_Evals)
 
 grid on
+title 'Radau IIA'
 ylabel 'Function evaluations'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
@@ -285,13 +287,13 @@ loglog(NoInterpolationIntegratorSampleFree.Tolerances,NoInterpolationIntegratorS
 
 grid on
 title DASSL
-ylabel 'Error RMS (integrator)'
+ylabel 'Mean abs Error (integrator)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
 % ylim([1e1,1e8])
 % set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
-legend('No interpolation','Linear interpolation','Sinc interpolation','location','NorthEast')
+legend('No interpolation','Linear interpolation','Sinc interpolation','location','SouthWest')
 
 
 % CriticalDamping DASSL
@@ -309,7 +311,7 @@ loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCrit
 
 grid on
 
-ylabel 'Error RMS (damping)'
+ylabel 'Mean abs Error (damping)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
@@ -334,7 +336,7 @@ loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationI
 grid on
 title 'Radau IIA'
 
-ylabel 'Error RMS (integrator)'
+ylabel 'Mean abs Error (integrator)'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
@@ -355,7 +357,7 @@ loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpo
 
 grid on
 xlabel 'Tolerance'
-ylabel 'Error RMS (damping)'
+ylabel 'Mean abs Error (damping)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
@@ -382,7 +384,7 @@ end
 %% Plot Signal to noise ratios
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 7, 'width', 8.5);
+    xmf_init('height', 5.2, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
     xmf_figure(6)
 else
@@ -424,7 +426,7 @@ end
 
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 7, 'width', 8.5);
+    xmf_init('height', 5.2, 'width', 8.5);
     xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
     xmf_figure(7)
 else

@@ -10,9 +10,9 @@ function batchSimulateWithLogReader
   input Real Tolerances[:]={1e-1,1e-2,1e-3,1e-4,1e-5,1e-6,1e-7,1e-8};
   input Real ReferenceTolerance=1e-9
     "Tolerance to be used for reference solution";
+  input String ReferenceState="integrator.y" "The state to be compared";
   input Integer ReferenceSamples=1000
     "Number of reference samples to compare simulations";
-  input String ReferenceState="integrator.y" "The state to be compared";
 
   output Real[size(Tolerances,1)] CPUTime;
   output Real[size(Tolerances,1)] numberOfSteps;
@@ -88,7 +88,8 @@ algorithm
     {ReferenceState},
     ReferenceSamples + 2);
 
-    absoluteMeanError[i] := sqrt(sum((ComparisonTrajectory - ReferenceTrajectory))^2/(ReferenceSamples + 2));
+    //absoluteMeanError[i] := sqrt(sum((ComparisonTrajectory - ReferenceTrajectory))^2/(ReferenceSamples + 2)); RMS
+    absoluteMeanError[i] := (sum(abs(ComparisonTrajectory - ReferenceTrajectory))/(ReferenceSamples + 2)); //H1 Norm
 
   end for;
 

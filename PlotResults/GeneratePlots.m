@@ -286,43 +286,21 @@ loglog(NoInterpolationIntegratorSampleFree.Tolerances,NoInterpolationIntegratorS
     SincInterpolationIntegratorSampled.Tolerances,SincInterpolationIntegratorSampled.absoluteMeanError+smallNumber)
 
 grid on
-title DASSL
-ylabel 'Mean abs Error (integrator)'
+title 'Integrator (1 state)'
+ylabel 'Mean abs Error (DASSL)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
-% ylim([1e1,1e8])
-% set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
+ylim([1e-10,1e0])
+set(gca,'YTick',fliplr([1e0,1e-2,1e-4,1e-6,1e-8,1e-10]))
 legend('No interpolation','Linear interpolation','Sinc interpolation','location','SouthWest')
 
 
-% CriticalDamping DASSL
+% plot integrator Radau
 if exportFigures && useInternalDLRToolboxes
     xmf_subplot(4,1,2)
 else
     subplot(412)
-end
-loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
-    LinInterpolationCriticalDamping50SampleFree.Tolerances,LinInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
-    SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
-    NoInterpolationCriticalDamping50Sampled.Tolerances,NoInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
-    LinInterpolationCriticalDamping50Sampled.Tolerances,LinInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
-    SincInterpolationCriticalDamping50Sampled.Tolerances,SincInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber)
-
-grid on
-
-ylabel 'Mean abs Error (damping)'
-xlim([1e-8,1e-1])
-set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
-set(gca,'XDir','reverse')
-% ylim([1e-3,5e2])
-% set(gca,'YTick',[1e-3,1e-1,1e1])
-
-% plot integrator Radau
-if exportFigures && useInternalDLRToolboxes
-    xmf_subplot(4,1,3)
-else
-    subplot(413)
 end
 
 loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
@@ -334,15 +312,41 @@ loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationI
 
 
 grid on
-title 'Radau IIA'
 
-ylabel 'Mean abs Error (integrator)'
+ylabel 'Mean abs Error (Radau IIA)'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
-% ylim([1e1,1e8])
-% set(gca,'YTick',[1e1,1e3,1e5,1e7,1e8])
+ylim([1e-10,1e0])
+set(gca,'YTick',fliplr([1e0,1e-2,1e-4,1e-6,1e-8,1e-10]))
 
+
+% CriticalDamping DASSL
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,3)
+else
+    subplot(413)
+end
+loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    LinInterpolationCriticalDamping50SampleFree.Tolerances,LinInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    NoInterpolationCriticalDamping50Sampled.Tolerances,NoInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    LinInterpolationCriticalDamping50Sampled.Tolerances,LinInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    SincInterpolationCriticalDamping50Sampled.Tolerances,SincInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber)
+
+grid on
+title 'Critical damping (50 states)'
+
+ylabel 'Mean abs Error (DASSL)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+ylim([1e-10,1e-2])
+set(gca,'YTick',fliplr([1e-2,1e-4,1e-6,1e-8,1e-10]))
+
+
+
+% plot damping Radau
 if exportFigures && useInternalDLRToolboxes
     xmf_subplot(4,1,4)
 else
@@ -357,12 +361,12 @@ loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpo
 
 grid on
 xlabel 'Tolerance'
-ylabel 'Mean abs Error (damping)'
+ylabel 'Mean abs Error (Radau IIA)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
-% ylim([1e-3,1e3])
-% set(gca,'YTick',[1e-3,1e-1,1e1,1e3])
+ylim([1e-10,1e-2])
+set(gca,'YTick',fliplr([1e-2,1e-4,1e-6,1e-8,1e-10]))
 if exportFigures
 xmf_export(fullfile(exportdirectory,'ErrorComparison'),'source',gcf,'output','eps_tex','compiler','pdflatex');
 end
@@ -384,11 +388,13 @@ end
 %% Plot Signal to noise ratios
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 5.2, 'width', 8.5);
-    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
+    xmf_init('height', 8, 'width', 8.5);
+    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',0.8);
     xmf_figure(6)
+    xmf_subplot(2,1,1)
 else
     figure(6)
+    subplot(211)
 end
 
 if useInternalDLRToolboxes
@@ -410,7 +416,7 @@ loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.numberOfF_Evals,..
        Res_TestSignalToNoiseSampled.Amplitudes,Res_TestSignalToNoiseSampled.numberOfF_Evals,...
        Res_RadauTestSignalToNoiseSampled.Amplitudes,Res_RadauTestSignalToNoiseSampled.numberOfF_Evals)
    
-xlabel 'Amplitude'
+%xlabel 'Amplitude'
 ylabel 'Function evaluations'
 legend('DASSL', 'Radau', 'location','West')
 grid on
@@ -420,17 +426,11 @@ set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-0])
 ylim([2e4,2e7])
 set(gca,'YTick',[1e5,1e6,1e7])
 
-if exportFigures && useInternalDLRToolboxes
-xmf_export(fullfile(exportdirectory,'SignalNoiseFeval'),'source',gcf,'output','eps_tex','compiler','pdflatex');
-end
-
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 5.2, 'width', 8.5);
-    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
-    xmf_figure(7)
+    xmf_subplot(2,1,2)
 else
-    figure(7)
+    subplot(212)
 end
 
 loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.CPUTime,...
@@ -439,14 +439,14 @@ loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.CPUTime,...
        Res_RadauTestSignalToNoiseSampled.Amplitudes,Res_RadauTestSignalToNoiseSampled.CPUTime)
 xlabel 'Amplitude'
 ylabel 'Simulation time / s'
-legend('DASSL', 'Radau', 'location','West')
+%legend('DASSL', 'Radau', 'location','West')
 grid on
 xlim([1e-8,1e-0])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-0])
 ylim([9e-1,1e3])
 set(gca,'YTick',[1e-0,1e1,1e2,1e3])
 if exportFigures && useInternalDLRToolboxes
-xmf_export(fullfile(exportdirectory,'SignalNoiseTime'),'source',gcf,'output','eps_tex','compiler','pdflatex');
+xmf_export(fullfile(exportdirectory,'SignalNoise'),'source',gcf,'output','eps_tex','compiler','pdflatex');
 end
 
 

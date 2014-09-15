@@ -1,40 +1,41 @@
 %% set plot data
-close all % clears memory
+close all; clear all % clears memory
 DataDir = fullfile(pwd,'Data'); % data dir of simulation results generated using the Modelica library
 useInternalDLRToolboxes = true; % set to false if internal DLR toolboxes are not available. This only effects grahical effects.
 exportFigures = true; % set to false if no figure export is wanted or no DLR internal toolboxes are available
 exportdirectory = fullfile(pwd,'Figures'); % Set output directory where figures are saved
+smallNumber = 1e-10; % Offset to avoid zeros in loglog plots
 
 %% Load logfile data
-NoInterplolationIntegratorSampleFree=load(fullfile(DataDir,'Res_NoInterplolationIntegratorSampleFree.mat'));
-LinInterplolationIntegratorSampleFree=load(fullfile(DataDir,'Res_LinInterplolationIntegratorSampleFree.mat'));
+NoInterpolationIntegratorSampleFree=load(fullfile(DataDir,'Res_NoInterpolationIntegratorSampleFree.mat'));
+LinInterpolationIntegratorSampleFree=load(fullfile(DataDir,'Res_LinInterpolationIntegratorSampleFree.mat'));
 SincInterpolationIntegratorSampleFree=load(fullfile(DataDir,'Res_SincInterpolationIntegratorSampleFree.mat'));
-NoInterplolationIntegratorSampled=load(fullfile(DataDir,'Res_NoInterplolationIntegratorSampled.mat'));
-LinInterplolationIntegratorSampled=load(fullfile(DataDir,'Res_LinInterplolationIntegratorSampled.mat'));
-SincInterplolationIntegratorSampled=load(fullfile(DataDir,'Res_SincInterplolationIntegratorSampled.mat'));
+NoInterpolationIntegratorSampled=load(fullfile(DataDir,'Res_NoInterpolationIntegratorSampled.mat'));
+LinInterpolationIntegratorSampled=load(fullfile(DataDir,'Res_LinInterpolationIntegratorSampled.mat'));
+SincInterpolationIntegratorSampled=load(fullfile(DataDir,'Res_SincInterpolationIntegratorSampled.mat'));
 
 
-NoInterplolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_NoInterplolationCriticalDamping50SampleFree.mat'));
-LinInterplolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_LinInterplolationCriticalDamping50SampleFree.mat'));
+NoInterpolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_NoInterpolationCriticalDamping50SampleFree.mat'));
+LinInterpolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_LinInterpolationCriticalDamping50SampleFree.mat'));
 SincInterpolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_SincInterpolationCriticalDamping50SampleFree.mat'));
-NoInterplolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_NoInterplolationCriticalDamping50Sampled.mat'));
-LinInterplolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_LinInterplolationCriticalDamping50Sampled.mat'));
-SincInterplolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_SincInterplolationCriticalDamping50Sampled.mat'));
+NoInterpolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_NoInterpolationCriticalDamping50Sampled.mat'));
+LinInterpolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_LinInterpolationCriticalDamping50Sampled.mat'));
+SincInterpolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_SincInterpolationCriticalDamping50Sampled.mat'));
 
 
-RadauNoInterplolationIntegratorSampleFree=load(fullfile(DataDir,'Res_RadauNoInterplolationIntegratorSampleFree.mat'));
-RadauLinInterplolationIntegratorSampleFree=load(fullfile(DataDir,'Res_RadauLinInterplolationIntegratorSampleFree.mat'));
+RadauNoInterpolationIntegratorSampleFree=load(fullfile(DataDir,'Res_RadauNoInterpolationIntegratorSampleFree.mat'));
+RadauLinInterpolationIntegratorSampleFree=load(fullfile(DataDir,'Res_RadauLinInterpolationIntegratorSampleFree.mat'));
 RadauSincInterpolationIntegratorSampleFree=load(fullfile(DataDir,'Res_RadauSincInterpolationIntegratorSampleFree.mat'));
-RadauNoInterplolationIntegratorSampled=load(fullfile(DataDir,'Res_RadauNoInterplolationIntegratorSampled.mat'));
-RadauLinInterplolationIntegratorSampled=load(fullfile(DataDir,'Res_RadauLinInterplolationIntegratorSampled.mat'));
-RadauSincInterplolationIntegratorSampled=load(fullfile(DataDir,'Res_RadauSincInterplolationIntegratorSampled.mat'));
+RadauNoInterpolationIntegratorSampled=load(fullfile(DataDir,'Res_RadauNoInterpolationIntegratorSampled.mat'));
+RadauLinInterpolationIntegratorSampled=load(fullfile(DataDir,'Res_RadauLinInterpolationIntegratorSampled.mat'));
+RadauSincInterpolationIntegratorSampled=load(fullfile(DataDir,'Res_RadauSincInterpolationIntegratorSampled.mat'));
 % 
-RadauNoInterplolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_RadauNoInterplolationCriticalDamping50SampleFree.mat'));
-RadauLinInterplolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_RadauLinInterplolationCriticalDamping50SampleFree.mat'));
+RadauNoInterpolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_RadauNoInterpolationCriticalDamping50SampleFree.mat'));
+RadauLinInterpolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_RadauLinInterpolationCriticalDamping50SampleFree.mat'));
 RadauSincInterpolationCriticalDamping50SampleFree=load(fullfile(DataDir,'Res_RadauSincInterpolationCriticalDamping50SampleFree.mat'));
-RadauNoInterplolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_RadauNoInterplolationCriticalDamping50Sampled.mat'));
-RadauLinInterplolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_RadauLinInterplolationCriticalDamping50Sampled.mat'));
-RadauSincInterplolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_RadauSincInterplolationCriticalDamping50Sampled.mat'));
+RadauNoInterpolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_RadauNoInterpolationCriticalDamping50Sampled.mat'));
+RadauLinInterpolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_RadauLinInterpolationCriticalDamping50Sampled.mat'));
+RadauSincInterpolationCriticalDamping50Sampled=load(fullfile(DataDir,'Res_RadauSincInterpolationCriticalDamping50Sampled.mat'));
 
 Res_TestSignalToNoise=load(fullfile(DataDir,'Res_TestSignalToNoise.mat'));
 Res_RadauTestSignalToNoise=load(fullfile(DataDir,'Res_RadauTestSignalToNoise.mat'));
@@ -69,12 +70,12 @@ else
     subplot(411)
 end
 
-loglog(NoInterplolationIntegratorSampleFree.Tolerances,NoInterplolationIntegratorSampleFree.numberOfF_Evals,...
-    LinInterplolationIntegratorSampleFree.Tolerances,LinInterplolationIntegratorSampleFree.numberOfF_Evals,...
+loglog(NoInterpolationIntegratorSampleFree.Tolerances,NoInterpolationIntegratorSampleFree.numberOfF_Evals,...
+    LinInterpolationIntegratorSampleFree.Tolerances,LinInterpolationIntegratorSampleFree.numberOfF_Evals,...
     SincInterpolationIntegratorSampleFree.Tolerances,SincInterpolationIntegratorSampleFree.numberOfF_Evals,...
-    NoInterplolationIntegratorSampled.Tolerances,NoInterplolationIntegratorSampled.numberOfF_Evals,...
-    LinInterplolationIntegratorSampled.Tolerances,LinInterplolationIntegratorSampled.numberOfF_Evals,...
-    SincInterplolationIntegratorSampled.Tolerances,SincInterplolationIntegratorSampled.numberOfF_Evals)
+    NoInterpolationIntegratorSampled.Tolerances,NoInterpolationIntegratorSampled.numberOfF_Evals,...
+    LinInterpolationIntegratorSampled.Tolerances,LinInterpolationIntegratorSampled.numberOfF_Evals,...
+    SincInterpolationIntegratorSampled.Tolerances,SincInterpolationIntegratorSampled.numberOfF_Evals)
 
 grid on
 title 'DASSL'
@@ -91,12 +92,12 @@ if exportFigures && useInternalDLRToolboxes
 else
     subplot(412)
 end
-loglog(NoInterplolationIntegratorSampleFree.Tolerances,NoInterplolationIntegratorSampleFree.CPUTime,...
-    LinInterplolationIntegratorSampleFree.Tolerances,LinInterplolationIntegratorSampleFree.CPUTime,...
+loglog(NoInterpolationIntegratorSampleFree.Tolerances,NoInterpolationIntegratorSampleFree.CPUTime,...
+    LinInterpolationIntegratorSampleFree.Tolerances,LinInterpolationIntegratorSampleFree.CPUTime,...
     SincInterpolationIntegratorSampleFree.Tolerances,SincInterpolationIntegratorSampleFree.CPUTime,...
-    NoInterplolationIntegratorSampled.Tolerances,NoInterplolationIntegratorSampled.CPUTime,...
-    LinInterplolationIntegratorSampled.Tolerances,LinInterplolationIntegratorSampled.CPUTime,...
-    SincInterplolationIntegratorSampled.Tolerances,SincInterplolationIntegratorSampled.CPUTime)
+    NoInterpolationIntegratorSampled.Tolerances,NoInterpolationIntegratorSampled.CPUTime,...
+    LinInterpolationIntegratorSampled.Tolerances,LinInterpolationIntegratorSampled.CPUTime,...
+    SincInterpolationIntegratorSampled.Tolerances,SincInterpolationIntegratorSampled.CPUTime)
 
 grid on
 
@@ -107,6 +108,9 @@ set(gca,'XDir','reverse')
 ylim([1e-3,5e2])
 set(gca,'YTick',[1e-3,1e-1,1e1])
 
+
+
+%%
 % plot integrator Radau
 if exportFigures && useInternalDLRToolboxes
     xmf_subplot(4,1,3)
@@ -114,12 +118,12 @@ else
     subplot(413)
 end
 
-loglog(RadauNoInterplolationIntegratorSampleFree.Tolerances,RadauNoInterplolationIntegratorSampleFree.numberOfF_Evals,...
-    RadauLinInterplolationIntegratorSampleFree.Tolerances,RadauLinInterplolationIntegratorSampleFree.numberOfF_Evals,...
+loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationIntegratorSampleFree.numberOfF_Evals,...
+    RadauLinInterpolationIntegratorSampleFree.Tolerances,RadauLinInterpolationIntegratorSampleFree.numberOfF_Evals,...
     RadauSincInterpolationIntegratorSampleFree.Tolerances,RadauSincInterpolationIntegratorSampleFree.numberOfF_Evals,...
-    RadauNoInterplolationIntegratorSampled.Tolerances,RadauNoInterplolationIntegratorSampled.numberOfF_Evals,...
-    RadauLinInterplolationIntegratorSampled.Tolerances,RadauLinInterplolationIntegratorSampled.numberOfF_Evals,...
-    RadauSincInterplolationIntegratorSampled.Tolerances,RadauSincInterplolationIntegratorSampled.numberOfF_Evals)
+    RadauNoInterpolationIntegratorSampled.Tolerances,RadauNoInterpolationIntegratorSampled.numberOfF_Evals,...
+    RadauLinInterpolationIntegratorSampled.Tolerances,RadauLinInterpolationIntegratorSampled.numberOfF_Evals,...
+    RadauSincInterpolationIntegratorSampled.Tolerances,RadauSincInterpolationIntegratorSampled.numberOfF_Evals)
 
 
 grid on
@@ -136,12 +140,12 @@ if exportFigures && useInternalDLRToolboxes
 else
     subplot(414)
 end
-loglog(RadauNoInterplolationIntegratorSampleFree.Tolerances,RadauNoInterplolationIntegratorSampleFree.CPUTime,...
-    RadauLinInterplolationIntegratorSampleFree.Tolerances,RadauLinInterplolationIntegratorSampleFree.CPUTime,...
+loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationIntegratorSampleFree.CPUTime,...
+    RadauLinInterpolationIntegratorSampleFree.Tolerances,RadauLinInterpolationIntegratorSampleFree.CPUTime,...
     RadauSincInterpolationIntegratorSampleFree.Tolerances,RadauSincInterpolationIntegratorSampleFree.CPUTime,...
-    RadauNoInterplolationIntegratorSampled.Tolerances,RadauNoInterplolationIntegratorSampled.CPUTime,...
-    RadauLinInterplolationIntegratorSampled.Tolerances,RadauLinInterplolationIntegratorSampled.CPUTime,...
-    RadauSincInterplolationIntegratorSampled.Tolerances,RadauSincInterplolationIntegratorSampled.CPUTime)
+    RadauNoInterpolationIntegratorSampled.Tolerances,RadauNoInterpolationIntegratorSampled.CPUTime,...
+    RadauLinInterpolationIntegratorSampled.Tolerances,RadauLinInterpolationIntegratorSampled.CPUTime,...
+    RadauSincInterpolationIntegratorSampled.Tolerances,RadauSincInterpolationIntegratorSampled.CPUTime)
 
 grid on
 xlabel 'Tolerance'
@@ -167,14 +171,15 @@ else
     subplot(411)
 end
 
-loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCriticalDamping50SampleFree.numberOfF_Evals,...
-    LinInterplolationCriticalDamping50SampleFree.Tolerances,LinInterplolationCriticalDamping50SampleFree.numberOfF_Evals,...
+loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCriticalDamping50SampleFree.numberOfF_Evals,...
+    LinInterpolationCriticalDamping50SampleFree.Tolerances,LinInterpolationCriticalDamping50SampleFree.numberOfF_Evals,...
     SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.numberOfF_Evals,...
-    NoInterplolationCriticalDamping50Sampled.Tolerances,NoInterplolationCriticalDamping50Sampled.numberOfF_Evals,...
-    LinInterplolationCriticalDamping50Sampled.Tolerances,LinInterplolationCriticalDamping50Sampled.numberOfF_Evals,...
-    SincInterplolationCriticalDamping50Sampled.Tolerances,SincInterplolationCriticalDamping50Sampled.numberOfF_Evals)
+    NoInterpolationCriticalDamping50Sampled.Tolerances,NoInterpolationCriticalDamping50Sampled.numberOfF_Evals,...
+    LinInterpolationCriticalDamping50Sampled.Tolerances,LinInterpolationCriticalDamping50Sampled.numberOfF_Evals,...
+    SincInterpolationCriticalDamping50Sampled.Tolerances,SincInterpolationCriticalDamping50Sampled.numberOfF_Evals)
 
 grid on
+title 'DASSL'
 ylabel 'Function evaluations'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
@@ -189,12 +194,12 @@ else
     subplot(412)
 end
 
-loglog(NoInterplolationCriticalDamping50SampleFree.Tolerances,NoInterplolationCriticalDamping50SampleFree.CPUTime,...
-    LinInterplolationCriticalDamping50SampleFree.Tolerances,LinInterplolationCriticalDamping50SampleFree.CPUTime,...
+loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCriticalDamping50SampleFree.CPUTime,...
+    LinInterpolationCriticalDamping50SampleFree.Tolerances,LinInterpolationCriticalDamping50SampleFree.CPUTime,...
     SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.CPUTime,...
-    NoInterplolationCriticalDamping50Sampled.Tolerances,NoInterplolationCriticalDamping50Sampled.CPUTime,...
-    LinInterplolationCriticalDamping50Sampled.Tolerances,LinInterplolationCriticalDamping50Sampled.CPUTime,...
-    SincInterplolationCriticalDamping50Sampled.Tolerances,SincInterplolationCriticalDamping50Sampled.CPUTime)
+    NoInterpolationCriticalDamping50Sampled.Tolerances,NoInterpolationCriticalDamping50Sampled.CPUTime,...
+    LinInterpolationCriticalDamping50Sampled.Tolerances,LinInterpolationCriticalDamping50Sampled.CPUTime,...
+    SincInterpolationCriticalDamping50Sampled.Tolerances,SincInterpolationCriticalDamping50Sampled.CPUTime)
 
 grid on
 
@@ -212,14 +217,15 @@ if exportFigures && useInternalDLRToolboxes
 else
     subplot(413)
 end
-loglog(RadauNoInterplolationCriticalDamping50SampleFree.Tolerances,RadauNoInterplolationCriticalDamping50SampleFree.numberOfF_Evals,...
-    RadauLinInterplolationCriticalDamping50SampleFree.Tolerances,RadauLinInterplolationCriticalDamping50SampleFree.numberOfF_Evals,...
+loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpolationCriticalDamping50SampleFree.numberOfF_Evals,...
+    RadauLinInterpolationCriticalDamping50SampleFree.Tolerances,RadauLinInterpolationCriticalDamping50SampleFree.numberOfF_Evals,...
     RadauSincInterpolationCriticalDamping50SampleFree.Tolerances,RadauSincInterpolationCriticalDamping50SampleFree.numberOfF_Evals,...
-    RadauNoInterplolationCriticalDamping50Sampled.Tolerances,RadauNoInterplolationCriticalDamping50Sampled.numberOfF_Evals,...
-    RadauLinInterplolationCriticalDamping50Sampled.Tolerances,RadauLinInterplolationCriticalDamping50Sampled.numberOfF_Evals,...
-    RadauSincInterplolationCriticalDamping50Sampled.Tolerances,RadauSincInterplolationCriticalDamping50Sampled.numberOfF_Evals)
+    RadauNoInterpolationCriticalDamping50Sampled.Tolerances,RadauNoInterpolationCriticalDamping50Sampled.numberOfF_Evals,...
+    RadauLinInterpolationCriticalDamping50Sampled.Tolerances,RadauLinInterpolationCriticalDamping50Sampled.numberOfF_Evals,...
+    RadauSincInterpolationCriticalDamping50Sampled.Tolerances,RadauSincInterpolationCriticalDamping50Sampled.numberOfF_Evals)
 
 grid on
+title 'Radau IIA'
 ylabel 'Function evaluations'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
@@ -233,12 +239,12 @@ else
     subplot(414)
 end
 
-loglog(RadauNoInterplolationCriticalDamping50SampleFree.Tolerances,RadauNoInterplolationCriticalDamping50SampleFree.CPUTime,...
-    RadauLinInterplolationCriticalDamping50SampleFree.Tolerances,RadauLinInterplolationCriticalDamping50SampleFree.CPUTime,...
+loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpolationCriticalDamping50SampleFree.CPUTime,...
+    RadauLinInterpolationCriticalDamping50SampleFree.Tolerances,RadauLinInterpolationCriticalDamping50SampleFree.CPUTime,...
     RadauSincInterpolationCriticalDamping50SampleFree.Tolerances,RadauSincInterpolationCriticalDamping50SampleFree.CPUTime,...
-    RadauNoInterplolationCriticalDamping50Sampled.Tolerances,RadauNoInterplolationCriticalDamping50Sampled.CPUTime,...
-    RadauLinInterplolationCriticalDamping50Sampled.Tolerances,RadauLinInterplolationCriticalDamping50Sampled.CPUTime,...
-    RadauSincInterplolationCriticalDamping50Sampled.Tolerances,RadauSincInterplolationCriticalDamping50Sampled.CPUTime)
+    RadauNoInterpolationCriticalDamping50Sampled.Tolerances,RadauNoInterpolationCriticalDamping50Sampled.CPUTime,...
+    RadauLinInterpolationCriticalDamping50Sampled.Tolerances,RadauLinInterpolationCriticalDamping50Sampled.CPUTime,...
+    RadauSincInterpolationCriticalDamping50Sampled.Tolerances,RadauSincInterpolationCriticalDamping50Sampled.CPUTime)
 
 grid on
 xlabel 'Tolerance'
@@ -251,14 +257,144 @@ set(gca,'YTick',[1e-3,1e-1,1e1,1e3])
 if exportFigures
 xmf_export(fullfile(exportdirectory,'BigSystem'),'source',gcf,'output','eps_tex','compiler','pdflatex');
 end
+
+
+
+
+
+
+
+
+
+%% Plot ERRORS!
+% Integrator DASSL
+if exportFigures && useInternalDLRToolboxes
+    xmf_init('height', 21, 'width', 8.5);
+    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',1.5);
+    xmf_figure(5)
+    xmf_subplot(4,1,1)
+else
+    figure(5)
+    subplot(411)
+end
+
+loglog(NoInterpolationIntegratorSampleFree.Tolerances,NoInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    LinInterpolationIntegratorSampleFree.Tolerances,LinInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    SincInterpolationIntegratorSampleFree.Tolerances,SincInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    NoInterpolationIntegratorSampled.Tolerances,NoInterpolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    LinInterpolationIntegratorSampled.Tolerances,LinInterpolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    SincInterpolationIntegratorSampled.Tolerances,SincInterpolationIntegratorSampled.absoluteMeanError+smallNumber)
+
+grid on
+title 'Integrator (1 state)'
+ylabel 'Mean abs Error (DASSL)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+ylim([1e-10,1e0])
+set(gca,'YTick',fliplr([1e0,1e-2,1e-4,1e-6,1e-8,1e-10]))
+legend('No interpolation','Linear interpolation','Sinc interpolation','location','SouthWest')
+
+
+% plot integrator Radau
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,2)
+else
+    subplot(412)
+end
+
+loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    RadauLinInterpolationIntegratorSampleFree.Tolerances,RadauLinInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    RadauSincInterpolationIntegratorSampleFree.Tolerances,RadauSincInterpolationIntegratorSampleFree.absoluteMeanError+smallNumber,...
+    RadauNoInterpolationIntegratorSampled.Tolerances,RadauNoInterpolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    RadauLinInterpolationIntegratorSampled.Tolerances,RadauLinInterpolationIntegratorSampled.absoluteMeanError+smallNumber,...
+    RadauSincInterpolationIntegratorSampled.Tolerances,RadauSincInterpolationIntegratorSampled.absoluteMeanError+smallNumber)
+
+
+grid on
+
+ylabel 'Mean abs Error (Radau IIA)'
+xlim([1e-8,1e-1])
+set(gca,'XDir','reverse')
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+ylim([1e-10,1e0])
+set(gca,'YTick',fliplr([1e0,1e-2,1e-4,1e-6,1e-8,1e-10]))
+
+
+% CriticalDamping DASSL
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,3)
+else
+    subplot(413)
+end
+loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    LinInterpolationCriticalDamping50SampleFree.Tolerances,LinInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    SincInterpolationCriticalDamping50SampleFree.Tolerances,SincInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    NoInterpolationCriticalDamping50Sampled.Tolerances,NoInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    LinInterpolationCriticalDamping50Sampled.Tolerances,LinInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    SincInterpolationCriticalDamping50Sampled.Tolerances,SincInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber)
+
+grid on
+title 'Critical damping (50 states)'
+
+ylabel 'Mean abs Error (DASSL)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+ylim([1e-10,1e-2])
+set(gca,'YTick',fliplr([1e-2,1e-4,1e-6,1e-8,1e-10]))
+
+
+
+% plot damping Radau
+if exportFigures && useInternalDLRToolboxes
+    xmf_subplot(4,1,4)
+else
+    subplot(414)
+end
+loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    RadauLinInterpolationCriticalDamping50SampleFree.Tolerances,RadauLinInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    RadauSincInterpolationCriticalDamping50SampleFree.Tolerances,RadauSincInterpolationCriticalDamping50SampleFree.absoluteMeanError+smallNumber,...
+    RadauNoInterpolationCriticalDamping50Sampled.Tolerances,RadauNoInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    RadauLinInterpolationCriticalDamping50Sampled.Tolerances,RadauLinInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber,...
+    RadauSincInterpolationCriticalDamping50Sampled.Tolerances,RadauSincInterpolationCriticalDamping50Sampled.absoluteMeanError+smallNumber)
+
+grid on
+xlabel 'Tolerance'
+ylabel 'Mean abs Error (Radau IIA)'
+xlim([1e-8,1e-1])
+set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
+set(gca,'XDir','reverse')
+ylim([1e-10,1e-2])
+set(gca,'YTick',fliplr([1e-2,1e-4,1e-6,1e-8,1e-10]))
+if exportFigures
+xmf_export(fullfile(exportdirectory,'ErrorComparison'),'source',gcf,'output','eps_tex','compiler','pdflatex');
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %% Plot Signal to noise ratios
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 7, 'width', 8.5);
-    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
-    xmf_figure(5)
+    xmf_init('height', 8, 'width', 8.5);
+    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',0.8);
+    xmf_figure(6)
+    xmf_subplot(2,1,1)
 else
-    figure(5)
+    figure(6)
+    subplot(211)
 end
 
 if useInternalDLRToolboxes
@@ -280,7 +416,7 @@ loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.numberOfF_Evals,..
        Res_TestSignalToNoiseSampled.Amplitudes,Res_TestSignalToNoiseSampled.numberOfF_Evals,...
        Res_RadauTestSignalToNoiseSampled.Amplitudes,Res_RadauTestSignalToNoiseSampled.numberOfF_Evals)
    
-xlabel 'Amplitude'
+%xlabel 'Amplitude'
 ylabel 'Function evaluations'
 legend('DASSL', 'Radau', 'location','West')
 grid on
@@ -290,17 +426,11 @@ set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-0])
 ylim([2e4,2e7])
 set(gca,'YTick',[1e5,1e6,1e7])
 
-if exportFigures && useInternalDLRToolboxes
-xmf_export(fullfile(exportdirectory,'SignalNoiseFeval'),'source',gcf,'output','eps_tex','compiler','pdflatex');
-end
-
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 7, 'width', 8.5);
-    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', .5);
-    xmf_figure(6)
+    xmf_subplot(2,1,2)
 else
-    figure(6)
+    subplot(212)
 end
 
 loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.CPUTime,...
@@ -309,13 +439,14 @@ loglog(Res_TestSignalToNoise.Amplitudes,Res_TestSignalToNoise.CPUTime,...
        Res_RadauTestSignalToNoiseSampled.Amplitudes,Res_RadauTestSignalToNoiseSampled.CPUTime)
 xlabel 'Amplitude'
 ylabel 'Simulation time / s'
-legend('DASSL', 'Radau', 'location','West')
+%legend('DASSL', 'Radau', 'location','West')
 grid on
 xlim([1e-8,1e-0])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-0])
 ylim([9e-1,1e3])
 set(gca,'YTick',[1e-0,1e1,1e2,1e3])
 if exportFigures && useInternalDLRToolboxes
-xmf_export(fullfile(exportdirectory,'SignalNoiseTime'),'source',gcf,'output','eps_tex','compiler','pdflatex');
+xmf_export(fullfile(exportdirectory,'SignalNoise'),'source',gcf,'output','eps_tex','compiler','pdflatex');
 end
+
 

@@ -1,9 +1,10 @@
 within BatchProcessing.Examples;
-model NoInterplolationCriticalDamping50SampleFree
+model SincInterpolationCriticalDamping50Sampled
 extends Modelica.Icons.Example;
   inner Noise.GlobalSeed globalSeed
     annotation (Placement(transformation(extent={{-32,-6},{-12,14}})));
-  Noise.PRNG prng
+  Noise.PRNG prng(useSampleBasedMethods=true, redeclare function PSD =
+        Noise.PSD.PSD_IdealLowPass)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Continuous.CriticalDamping criticalDamping(f=10,
     n=50,
@@ -16,4 +17,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
-end NoInterplolationCriticalDamping50SampleFree;
+end SincInterpolationCriticalDamping50Sampled;

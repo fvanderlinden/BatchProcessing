@@ -148,7 +148,7 @@ loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationI
     RadauSincInterpolationIntegratorSampled.Tolerances,RadauSincInterpolationIntegratorSampled.CPUTime)
 
 grid on
-xlabel 'Tolerance'
+xlabel 'Relative tolerance of solver'
 ylabel 'Simulation time / s'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
@@ -247,7 +247,7 @@ loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpo
     RadauSincInterpolationCriticalDamping50Sampled.Tolerances,RadauSincInterpolationCriticalDamping50Sampled.CPUTime)
 
 grid on
-xlabel 'Tolerance'
+'Relative tolerance of solver'
 ylabel 'Simulation time / s'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
@@ -287,7 +287,7 @@ loglog(NoInterpolationIntegratorSampleFree.Tolerances,NoInterpolationIntegratorS
 
 grid on
 title 'Integrator (1 state)'
-ylabel 'Mean abs Error (DASSL)'
+ylabel 'Mean abs error (DASSL)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
@@ -313,7 +313,7 @@ loglog(RadauNoInterpolationIntegratorSampleFree.Tolerances,RadauNoInterpolationI
 
 grid on
 
-ylabel 'Mean abs Error (Radau IIA)'
+ylabel 'Mean abs error (Radau IIA)'
 xlim([1e-8,1e-1])
 set(gca,'XDir','reverse')
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
@@ -337,7 +337,7 @@ loglog(NoInterpolationCriticalDamping50SampleFree.Tolerances,NoInterpolationCrit
 grid on
 title 'Critical damping (50 states)'
 
-ylabel 'Mean abs Error (DASSL)'
+ylabel 'Mean abs error (DASSL)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
@@ -361,7 +361,7 @@ loglog(RadauNoInterpolationCriticalDamping50SampleFree.Tolerances,RadauNoInterpo
 
 grid on
 xlabel 'Tolerance'
-ylabel 'Mean abs Error (Radau IIA)'
+ylabel 'Mean abs error (Radau IIA)'
 xlim([1e-8,1e-1])
 set(gca,'XTick',[1e-8,1e-6,1e-4,1e-2,1e-1])
 set(gca,'XDir','reverse')
@@ -388,8 +388,8 @@ end
 %% Plot Signal to noise ratios
 
 if exportFigures && useInternalDLRToolboxes
-    xmf_init('height', 8, 'width', 8.5);
-    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.1, 'topmargin', 0.8, 'vspace',0.8);
+    xmf_init('height', 7.5, 'width', 8.5);
+    xmf_init('leftmargin', 1.5, 'rightmargin', 0.5, 'bottommargin', 1.0, 'topmargin', 0.2, 'vspace',0.8);
     xmf_figure(6)
     xmf_subplot(2,1,1)
 else

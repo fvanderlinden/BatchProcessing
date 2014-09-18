@@ -1,5 +1,6 @@
 within BatchProcessing.Batches;
-function Paper1
+function NoiseContinuousTimePerformance
+  "Batch Processing for Effects of Event-Free Noise Signals on Continuous-Time Simulation Perfomance"
   input String[:] getSimulationProperties={"Number of (successful) steps","time for integration",
       "Number of F-evaluations"};
   input Real Tolerances[:]={1e-1,1e-2,1e-3,1e-4,1e-5,1e-6,1e-7,1e-8};
@@ -80,4 +81,7 @@ algorithm
       getSimulationProperties,
       Amplitudes);
 
-end Paper1;
+  annotation (Documentation(info="<html>
+<p>Batch Processing for Effects of Event-Free Noise Signals on Continuous-Time Simulation Perfomance</p>
+</html>"));
+end NoiseContinuousTimePerformance;

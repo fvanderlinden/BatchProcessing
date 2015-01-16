@@ -1,0 +1,15 @@
+LibraryInfoMenuSeparator(
+  category="libraries",
+  pos=100)
+
+LibraryInfoMenuCommand(
+  category="libraries",
+  text="BatchProcessing",
+  reference="BatchProcessing",
+  version="0.1.0",
+  isModel=true,
+  description="BatchProcessing Library for developing paper examples",
+  ModelicaVersion="3.2.1",
+  pos=1111)
+
+// LibraryInfoPreload(reference="Modelica_LinearSystems2")

@@ -1,7 +1,7 @@
 within BatchProcessing.Batches;
 function GearPaper
 
-    input String modelName = "Gears.Tests.GearTestrig.TestRig";
+    input String modelName = "Gears.Tests.GearTestrig.TestRigNiemann";
 
   input Real revolutions = 9.1 "revolutions of test rig";
   input String method = "dassl";
@@ -12,7 +12,7 @@ function GearPaper
 
 protected
   Boolean isSimulated;
-  Real stopTime = revolutions*60/Modelica.SIunits.Conversions.to_rpm(Speed)
+  Real stopTime = abs(revolutions*60/Modelica.SIunits.Conversions.to_rpm(Speed))
     "Simulation stop time";
   Real temp[:];
 
@@ -25,11 +25,11 @@ algorithm
       numberOfIntervals=integer(stopTime*8000),
       outputInterval=0,
       method=method,
-      tolerance=1e-4,
+      tolerance=1e-9,
       fixedstepsize=0,
       resultFile=resultMatName + "_" + String(1000+i),
       initialNames={"TorqueLoad","SpeedLoad"},
-      initialValues={Loads[i],Speed},
+      initialValues={Loads[i],-Speed},
       finalNames={"TorqueLoad"},
       autoLoad=false);
     end for;
